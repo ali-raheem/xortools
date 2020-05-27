@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
   if (3 != argc) {
-    printf("xorioc\n\t%s FILE MAX_LEN\n", argv[0]);
+    printf("xortools - v0.2.2 - May 2020 - Ali Raheem\n\t%s FILE MAX_LEN\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 

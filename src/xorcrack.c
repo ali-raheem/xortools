@@ -23,7 +23,7 @@ void decrypt(char *buffer, char *key, int keylen) {
 
 int main(int argc, char *argv[]) {
   if (argc != 4) {
-    printf("xorcrack\n\t%s CRYPTFILE PLAINTEXT KEYLEN\n", argv[0]);
+    printf("xortools - v0.2.2 - May 2020 - Ali Raheem\n\t%s CRYPTFILE PLAINTEXT KEYLEN\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
