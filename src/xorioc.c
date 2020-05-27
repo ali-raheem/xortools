@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
   if (3 != argc) {
-    printf("xortools - v0.2.4 - May 2020 - Ali Raheem\n\t%s FILE MAX_LEN\n", argv[0]);
+    printf("xortools - v0.2.5 - May 2020 - Ali Raheem\n\t%s FILE MAX_LEN\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
@@ -33,7 +33,8 @@ int main(int argc, char *argv[]) {
 
   float *ioc = (float *) malloc(sizeof (float) * maxlen);
   assert(NULL != ioc);
-  float ioc_total;
+  
+  float ioc_total = 0;
   uint total, matchs;
   int i, j, k;
 # pragma omp parallel for private(total, matchs, j, k) reduction(+:ioc_total)
@@ -46,11 +47,11 @@ int main(int argc, char *argv[]) {
       }
       total += (filesize - j) / i;
     }
-    ioc[i] = (float) matchs / (float) total;
-    ioc_total += ioc[i];
+    ioc[i - 1] = (float) matchs / (float) total;
+    ioc_total += ioc[i - 1];
   }
 
-  for(i = 1; i < maxlen + 1; i++) {
+  for(i = 0; i < maxlen; i++) {
     printf("%04d %0.3f \n", i, maxlen*ioc[i]/ioc_total);
   }
 }

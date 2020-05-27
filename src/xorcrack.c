@@ -23,7 +23,7 @@ void decrypt(char *buffer, char *key, int keylen) {
 
 int main(int argc, char *argv[]) {
   if (argc != 4) {
-    printf("xortools - v0.2.4 - May 2020 - Ali Raheem\n\t%s CRYPTFILE PLAINTEXT KEYLEN\n", argv[0]);
+    printf("xortools - v0.2.5 - May 2020 - Ali Raheem\n\t%s CRYPTFILE PLAINTEXT KEYLEN\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
@@ -50,11 +50,7 @@ int main(int argc, char *argv[]) {
   struct stat fpstat;
   stat(crypt_filename, &fpstat);
   size_t filesize = fpstat.st_size;
-  /*
-  fseek(in, 0L, SEEK_END);
-  size_t filesize = ftell(in);
-  rewind(in);
-  */
+
   long i = 0;
   do {
     size_t bytesread = fread(buffer, buffer_len, 1, in);
