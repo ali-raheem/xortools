@@ -65,11 +65,11 @@ int main(int argc, char *argv[]) {
   }while(i + buffer_len <= filesize);
   
   if (found) {
-    int r = i % keylen;
+    i %= keylen;
     buffer[keylen] = 0;
-    memcpy(buffer, key + keylen - r, r);
-    memcpy(buffer + r, key, keylen - r);
-    printf("%s", buffer);
+    memcpy(buffer, key + keylen - i, i);
+    memcpy(buffer + i, key, keylen - i);
+    fwrite(buffer, keylen, 1, stdout);
   } else {
     fprintf(stderr, "No beans");
   }
