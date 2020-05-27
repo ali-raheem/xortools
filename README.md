@@ -34,7 +34,7 @@ Try and find a key given the key length and some plaintext
 
 ### xorkey
 
-Encrypt/Decrypt files
+Encrypt/Decrypt files using a key
 
 #### Building
 
@@ -44,3 +44,18 @@ Encrypt/Decrypt files
 
 `xorkey file key`
 
+Arbitary key's can be provided with printf.
+
+`xorkey file "$(printf '\xDE\xAD\xBE\xEF')"`
+
+### xorfile
+
+Encrypt/Decrypt files using a keyfile.
+
+#### Building
+
+`gcc -O2 -o bin/xorfile src/xorfile.c`
+
+#### Usage
+
+`xorfile file keyfile`
