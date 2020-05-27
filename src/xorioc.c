@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <assert.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -15,6 +16,7 @@ int main(int argc, char *argv[]) {
   int maxlen = atoi(argv[2]);
 
   FILE *fp = fopen(filename, "rb");
+  assert(NULL != fp);
   struct stat fpstat;
   stat(filename, &fpstat);
   size_t filesize = fpstat.st_size; 
@@ -25,6 +27,7 @@ int main(int argc, char *argv[]) {
 */
 
   char *buffer = (char *) malloc(filesize);
+  assert(NULL != buffer);
   fread(buffer, filesize, 1, fp);
 
   if (filesize < maxlen) {
@@ -33,6 +36,7 @@ int main(int argc, char *argv[]) {
 
 
   float *ioc = (float *)malloc(sizeof (float) * maxlen);
+  assert(NULL != ioc);
   float ioc_total;
   uint total, matchs;
   int i, j, k;
