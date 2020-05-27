@@ -24,17 +24,17 @@ int main(int argc, char *argv[]) {
   }
 
   int i, j, k;
-  for(i = 1; i < maxlen + 1; i++) {
-    int total = 0;
-    int matchs = 0;
+  for(i = maxlen; i > 0; i--) {
+    uint total = 0;
+    uint matchs = 0;
     for(j = 0; j < filesize; j++) {
       for(k = i + j; k < filesize; k += i) {
 	total++;
 	if(buffer[j] == buffer[k]) matchs++;
       }
     }
-    float ioc = (float) matchs / (float) total;
-    printf("%04d %0.3f\%\n", i, ioc*100);
+    float ioc = 100.0 * (float) matchs / (float) total;
+    printf("%04d %0.3f\% \n", i, ioc);
   }
   
 }
