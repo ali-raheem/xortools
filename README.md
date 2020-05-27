@@ -18,6 +18,8 @@ OpenMP provides ~5% speed up, but means output will be scrambled and so has to w
 
 `xorioc file max_key_length` higher ioc suggests a particular key length is more likely to be correct. However, multiples and factors will confound the result.
 
+`xorioc file max_key_length | sort -n -r -k2` will sort the output by decending likelihood. 
+
 ### xorcrack
 
 Try and find a key given the key length and some plaintext

@@ -20,11 +20,7 @@ int main(int argc, char *argv[]) {
   struct stat fpstat;
   stat(filename, &fpstat);
   size_t filesize = fpstat.st_size; 
-/*
-  fseek(fp, 0L, SEEK_END);
-  size_t filesize = ftell(fp);
-  rewind(fp);
-*/
+
 
   char *buffer = (char *) malloc(filesize);
   assert(NULL != buffer);
@@ -35,7 +31,7 @@ int main(int argc, char *argv[]) {
   }
 
 
-  float *ioc = (float *)malloc(sizeof (float) * maxlen);
+  float *ioc = (float *) malloc(sizeof (float) * maxlen);
   assert(NULL != ioc);
   float ioc_total;
   uint total, matchs;
@@ -46,9 +42,9 @@ int main(int argc, char *argv[]) {
     matchs = 0;
     for(j = 0; j < filesize; j++) {
       for(k = i + j; k < filesize; k += i) {
-	total++;
 	if(buffer[j] == buffer[k]) matchs++;
       }
+      total += (filesize - j) / i;
     }
     ioc[i] = (float) matchs / (float) total;
     ioc_total += ioc[i];
