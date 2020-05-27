@@ -65,8 +65,8 @@ Encrypt/Decrypt files using a keyfile.
 
 Using encrypted firmware as an example.
 
-1. You can use `xorioc` to see if you have reason to believe xor encryption is used and how long the key might be. **This is the slowest step in my experience, and equally you might just skip to step 3**.
-2. It looks like 8, 16, 32 are equally likely. Lets start with 8 (shortest).
+1. You can use `xorioc` to see if you have reason to believe xor encryption is used and how long the key might be. **This is the slowest step in my experience, and equally you might just skip to step 3**. I used `xorioc firmware 32`.
+2. In my case it looks like 8, 16, 32 are equally likely (2.45~2.48). Lets start with 8 (shortest).
 3. We need to guess what the firmware might contain, my experience with this particular family "JUAN IPCC" is that it's likely to have loads of symbolic links to `../../bin/busybox`. That's likely very common in all firmware so long as it's not obstrufcated by the packaging.
 4. Using `xorcrack firmware '../../bin/busybox' 8` gives us a hit with the password "12345678".
 5. We can decrypt with `xorkey firmware "12345678" > decrypted`.
