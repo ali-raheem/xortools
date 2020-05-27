@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 void gen_key(char *buffer, char *plaintext, char *key, int keylen) {
   int i = 0;
@@ -45,10 +47,14 @@ int main(int argc, char *argv[]) {
 
   FILE *in = fopen(crypt_filename, "rb");
   assert(NULL != in);
+  struct stat fpstat;
+  stat(crypt_filename, &fpstat);
+  size_t filesize = fpstat.st_size;
+  /*
   fseek(in, 0L, SEEK_END);
   size_t filesize = ftell(in);
   rewind(in);
-
+  */
   long i = 0;
   do {
     size_t bytesread = fread(buffer, buffer_len, 1, in);
