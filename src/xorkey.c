@@ -5,7 +5,8 @@
 
 int main(int argc, char **argv) {
   if (argc != 3) {
-    printf("xortools - v0.2.6 - May 2020 - Ali Raheem\n\t%s INPUT_FILE KEY\n", argv[0]);
+    puts("xortools - v0.2.6 - Ali Raheem");
+    printf("\t%s INPUT_FILE KEY\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 

@@ -60,6 +60,23 @@ Encrypt/Decrypt files using a keyfile.
 
 `xorfile file keyfile`
 
+### xor
+
+Encrypt and decrypt with key or keyfile from STDIN.
+
+#### Building
+
+`gcc -O2 -o bin/xor src/xor.c`
+
+#### Usage
+
+`cat xor.c | xor "hunter2"`
+
+or from a keyfile
+
+`echo -n "hunter2" > keyfile`  -n will supress echo's trailing new line.
+
+`cat xor.c | xor -f keyfile`
 
 ## Workflow
 
