@@ -53,6 +53,6 @@ int main(int argc, char *argv[]) {
   }
 
   for(i = 0; i < maxlen; i++) {
-    printf("%04d %0.3f \n", i, maxlen*ioc[i]/ioc_total);
+    printf("%04d %0.3f \n", i + 1, maxlen*ioc[i]/ioc_total);
   }
 }
