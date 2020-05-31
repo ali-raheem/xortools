@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
   if (3 != argc) {
-    puts("xortools - v0.2.7 - Ali Raheem");
+    puts("xortools - v0.2.8 - Ali Raheem");
     puts("https://github.com/ali-raheem/xortools");
     printf("\t%s FILE MAX_LEN\n", argv[0]);
     exit(EXIT_FAILURE);

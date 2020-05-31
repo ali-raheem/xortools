@@ -6,13 +6,43 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+size_t parse(char *outBuffer, const char *inBuffer, const size_t len) {
+  int i, j;
+  i = 0;
+  j = 0;
+  while(i < len) {
+    switch(inBuffer[i]) {
+    case '\\':
+      assert(i + 1 < len);
+      switch(inBuffer[++i]) {
+      case '\\':
+	outBuffer[j++] = inBuffer[i];
+	break;
+      case 'x':
+	assert(i + 2 < len);
+	assert(1 == sscanf(&inBuffer[i + 1], "%2x", (uint *) &outBuffer[j++]));
+	i += 2;
+	break;
+      default:
+	printf("Error: Don't know what '\\%c' means.\n", inBuffer[i]);
+	exit(EXIT_FAILURE);
+      }
+      break;
+    default:
+      outBuffer[j++] = inBuffer[i];
+    }
+    i++;
+  }
+  return j;
+}
+
 int main(int argc, char **argv) {
   int keyfile = 0;
   char *key;
   char c;
 
   if (2 > argc) {
-    printf("xortools - v0.2.7 - Ali Raheem");
+    printf("xortools - v0.2.8 - Ali Raheem");
     puts("https://github.com/ali-raheem/xortools");
     printf("\t%s [-f] key\n", argv[0]);
     puts("\t\t-f\t\tOptional, key parameter is a file");
@@ -34,7 +64,7 @@ int main(int argc, char **argv) {
     }
   }
   
-  size_t key_len = strlen(key);
+  size_t key_len;
   
   if (keyfile) {
     FILE *fp;
@@ -46,8 +76,11 @@ int main(int argc, char **argv) {
     assert(NULL != key);
     fread(key, key_len, sizeof(char), fp);
   } else {
-      //    key = argv[1];
     key_len = strlen(key);
+    char *keydata = (char *) malloc(key_len * sizeof(char));
+    assert(NULL != keydata);
+    key_len = parse(keydata, key, key_len);
+    key = keydata;
   }
 
   size_t i = 0;
