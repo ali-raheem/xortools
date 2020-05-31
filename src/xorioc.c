@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -6,7 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   if (3 != argc) {
     puts("xortools - v0.2.8 - Ali Raheem");
     puts("https://github.com/ali-raheem/xortools");
@@ -14,17 +15,17 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  char *filename = argv[1];
+  uint8_t* filename = argv[1];
   int maxlen = atoi(argv[2]);
 
-  FILE *fp = fopen(filename, "rb");
+  FILE* fp = fopen(filename, "rb");
   assert(NULL != fp);
   struct stat fpstat;
   stat(filename, &fpstat);
   size_t filesize = fpstat.st_size; 
 
 
-  char *buffer = (char *) malloc(filesize);
+  uint8_t* buffer = (uint8_t*) malloc(filesize);
   assert(NULL != buffer);
   fread(buffer, filesize, 1, fp);
 
@@ -33,7 +34,7 @@ int main(int argc, char *argv[]) {
   }
 
 
-  float *ioc = (float *) malloc(sizeof (float) * maxlen);
+  float* ioc = (float*) malloc(sizeof (float) * maxlen);
   assert(NULL != ioc);
   
   float ioc_total = 0;

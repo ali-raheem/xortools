@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
-void gen_key(char *buffer, char *plaintext, char *key, int keylen) {
+
+void gen_key(uint8_t *buffer, uint8_t *plaintext, uint8_t *key, int keylen) {
   int i = 0;
   while (i < keylen) {
     key[i] = buffer[i] ^ plaintext[i];
@@ -13,7 +15,7 @@ void gen_key(char *buffer, char *plaintext, char *key, int keylen) {
   }
 }
 
-void decrypt(char *buffer, char *key, int keylen) {
+void decrypt(uint8_t *buffer, uint8_t *key, int keylen) {
   int i = 0;
   while (i < keylen) {
     buffer[i] = buffer[i] ^ key[i];
@@ -29,12 +31,12 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  char *crypt_filename = argv[1];
-  char *plaintext = argv[2];
+  uint8_t *crypt_filename = argv[1];
+  uint8_t *plaintext = argv[2];
   int keylen = atoi(argv[3]);
   int found = 0;
   
-  char *key = (char *) malloc(keylen);
+  uint8_t *key = (uint8_t *) malloc(keylen);
   assert(NULL != key);
   
   size_t buffer_len = strlen(plaintext);
@@ -44,7 +46,7 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
       
-  char *buffer = (char *) malloc(buffer_len);
+  uint8_t *buffer = (uint8_t *) malloc(buffer_len);
   assert(NULL != buffer);
 
   FILE *in = fopen(crypt_filename, "rb");

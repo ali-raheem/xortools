@@ -1,12 +1,12 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <getopt.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
-size_t parse(char *outBuffer, const char *inBuffer, const size_t len) {
+size_t parse(uint8_t *outBuffer, const uint8_t *inBuffer, const size_t len) {
   int i, j;
   i = 0;
   j = 0;
@@ -20,7 +20,7 @@ size_t parse(char *outBuffer, const char *inBuffer, const size_t len) {
 	break;
       case 'x':
 	assert(i + 2 < len);
-	assert(1 == sscanf(&inBuffer[i + 1], "%2x", (uint *) &outBuffer[j++]));
+	assert(1 == sscanf(&inBuffer[i + 1], "%2x", (int *) &outBuffer[j++]));
 	i += 2;
 	break;
       default:
@@ -36,35 +36,33 @@ size_t parse(char *outBuffer, const char *inBuffer, const size_t len) {
   return j;
 }
 
-int main(int argc, char **argv) {
-  int keyfile = 0;
-  char *key;
-  char c;
-
-  if (2 > argc) {
+void usage(char *progname) {
     printf("xortools - v0.2.8 - Ali Raheem");
     puts("https://github.com/ali-raheem/xortools");
-    printf("\t%s [-f] key\n", argv[0]);
+    printf("\t%s [-f] key\n", progname);
     puts("\t\t-f\t\tOptional, key parameter is a file");
     exit(EXIT_FAILURE);
-  }
-  
-  while ((c = getopt(argc, argv, "-f:")) != -1) {
-    switch (c) {
-    case 'f':
-      keyfile = 1;
-      key = optarg;
-      break;
-    case 1:
-      key = optarg;
-      break;
-    default:
-      printf("xortools\n\t%s [-f] key", argv[0]);
-      exit(EXIT_FAILURE);
-    }
-  }
-  
+}
+
+int main(int argc, char *argv[]) {
+  int keyfile = 0;
+  uint8_t *key;
+  uint8_t c;
   size_t key_len;
+
+  if (2 > argc) {
+    usage(argv[0]);
+  }
+
+  key = argv[1];
+  if(0 == strcmp("-f", key)) {
+    if (3 != argc) {
+      usage(argv[0]);
+    }
+    keyfile = 1;
+    key = argv[2];
+  }
+  
   
   if (keyfile) {
     FILE *fp;
@@ -72,12 +70,12 @@ int main(int argc, char **argv) {
     fp = fopen(key, "rb");
     stat(key, &fpstat);
     key_len = fpstat.st_size;
-    key = (char *) malloc(sizeof(char) * key_len);
+    key = (uint8_t *) malloc(sizeof(uint8_t) * key_len);
     assert(NULL != key);
-    fread(key, key_len, sizeof(char), fp);
+    fread(key, key_len, sizeof(uint8_t), fp);
   } else {
     key_len = strlen(key);
-    char *keydata = (char *) malloc(key_len * sizeof(char));
+    uint8_t *keydata = (uint8_t *) malloc(key_len * sizeof(uint8_t));
     assert(NULL != keydata);
     key_len = parse(keydata, key, key_len);
     key = keydata;
