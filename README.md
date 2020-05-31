@@ -57,34 +57,6 @@ Try and find a key given the key length and some plaintext
 
 `xorcrack file plaintext key_length` The plaintext must be at least twice as long as keylength. And must occur in the (decrypted) file verbatim.
 
-### xorkey
-
-Encrypt/Decrypt files using a key
-
-#### Building
-
-`gcc -O2 -o bin/xorkey src/xorkey.c`
-
-#### Usage
-
-`xorkey file key`
-
-Arbitary key's can be provided with printf.
-
-`xorkey file "$(printf '\xDE\xAD\xBE\xEF')"`
-
-### xorfile
-
-Encrypt/Decrypt files using a keyfile.
-
-#### Building
-
-`gcc -O2 -o bin/xorfile src/xorfile.c`
-
-#### Usage
-
-`xorfile file keyfile`
-
 ### xor
 
 Encrypt and decrypt with key or keyfile from STDIN.
@@ -95,13 +67,18 @@ Encrypt and decrypt with key or keyfile from STDIN.
 
 #### Usage
 
-`cat xor.c | xor "hunter2"`
+`cat xor.c | xor 'hunter2'`
 
-or from a keyfile
+Keys passed on the command line can use hexidecimal encoded bytes.
 
-`echo -n "hunter2" > keyfile`  -n will supress echo's trailing new line.
+`cat plaintext.txt| xor '\xde\xad\xbe\xef'`
 
-`cat xor.c | xor -f keyfile`
+It's best to use single quotes, `\` will need to be escaped like so `\\`. If your command line is arguing with you just use a keyfile:
+
+```bash
+printf 'hunt\x45r2' > keyfile
+cat xor.c | xor -f keyfile
+```
 
 ## Workflow
 
