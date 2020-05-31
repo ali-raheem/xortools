@@ -12,7 +12,8 @@ int main(int argc, char **argv) {
   char c;
 
   if (2 > argc) {
-    printf("xortools - v0.2.6 - Ali Raheem");
+    printf("xortools - v0.2.7 - Ali Raheem");
+    puts("https://github.com/ali-raheem/xortools");
     printf("\t%s [-f] key\n", argv[0]);
     puts("\t\t-f\t\tOptional, key parameter is a file");
     exit(EXIT_FAILURE);

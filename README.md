@@ -14,6 +14,31 @@ Estimate xor key length using index of coincidence
 
 OpenMP provides ~5% speed up, but means output will be scrambled and so has to wait until all processing is finished.
 
+##### xorioc benchmarks
+
+Working with a 70KB random file `dd if=/dev/uranomd of=test bs=1K count=70` here are the results on my laptop (i5-2430M CPU @ 2.40GHz).
+
+###### -march=native -mtune=native -O3 -fopenmp
+real    0m8.467s
+user    0m13.522s
+sys     0m0.016s
+
+###### -march=native -mtune=native -O3
+real    0m10.639s
+user    0m10.638s
+sys     0m0.000s
+
+###### -O2  -fopenmp 
+real    0m8.413s
+user    0m13.682s
+sys     0m0.017s
+
+###### -O3 -fopenmp
+real    0m8.708s
+user    0m13.637s
+sys     0m0.028s
+
+
 #### Usage
 
 `xorioc file max_key_length` higher ioc suggests a particular key length is more likely to be correct. However, multiples and factors will confound the result.

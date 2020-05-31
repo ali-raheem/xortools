@@ -7,7 +7,8 @@
 
 int main(int argc, char **argv) {
   if (argc != 3) {
-    puts("xortools - v0.2.6 - Ali Raheem");
+    puts("xortools - v0.2.7 - Ali Raheem");
+    puts("https://github.com/ali-raheem/xortools");
     printf("\t%s INPUT_FILE KEY_FILE\n", argv[0]);
     exit(EXIT_FAILURE);
   }

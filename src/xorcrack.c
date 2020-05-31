@@ -23,7 +23,8 @@ void decrypt(char *buffer, char *key, int keylen) {
 
 int main(int argc, char *argv[]) {
   if (argc != 4) {
-    puts("xortools - v0.2.6 - Ali Raheem");
+    puts("xortools - v0.2.7 - Ali Raheem");
+    puts("https://github.com/ali-raheem/xortools");
     printf("\t%s CRYPTFILE PLAINTEXT KEYLEN\n", argv[0]);
     exit(EXIT_FAILURE);
   }
