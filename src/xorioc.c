@@ -36,11 +36,14 @@ int main(int argc, char* argv[]) {
 
   float* ioc = (float*) malloc(sizeof (float) * maxlen);
   assert(NULL != ioc);
-  
+
+#pragma acc kernels
+  {
   float ioc_total = 0;
   uint total, matchs;
   int i, j, k;
-# pragma omp parallel for private(total, matchs, j, k) reduction(+:ioc_total)
+  //#pragma omp parallel for private(total, matchs, j, k) reduction(+:ioc_total)
+#pragma acc loop reduction(+:ioc_total)
   for(i = maxlen; i > 0; i--) {
     total = 0;
     matchs = 0;
@@ -53,7 +56,7 @@ int main(int argc, char* argv[]) {
     ioc[i - 1] = (float) matchs / (float) total;
     ioc_total += ioc[i - 1];
   }
-
+  }
   for(i = 0; i < maxlen; i++) {
     printf("%04d %0.3f \n", i + 1, maxlen*ioc[i]/ioc_total);
   }

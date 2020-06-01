@@ -10,7 +10,7 @@ Small suit of programs for xor functions on files.
 
 ### xorioc
 
-Estimate xor key length using index of coincidence
+Estimate xor key length using index of coincidence. Much **MUCH** faster implementation but less accurate [here](https://github.com/ali-raheem/coinkydink).
 
 #### Building
 
